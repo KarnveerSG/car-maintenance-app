@@ -33,9 +33,18 @@ try {
     process.exit(1);
   }
 
-  const dest = join(os.homedir(), "Desktop", artifactName);
-  copyFileSync(src, dest);
-  log(`COPIED ${dest}`);
+  const appsDir = "E:\\Applications";
+  const appsDest = join(appsDir, artifactName);
+  mkdirSync(appsDir, { recursive: true });
+  copyFileSync(src, appsDest);
+  log(`COPIED ${appsDest}`);
+
+  const shortcutPath = join(os.homedir(), "Desktop", "Garage Keeper.lnk");
+  execSync(
+    `$s = (New-Object -ComObject WScript.Shell).CreateShortcut('${shortcutPath.replace(/'/g, "''")}'); $s.TargetPath = '${appsDest.replace(/'/g, "''")}'; $s.WorkingDirectory = '${appsDir.replace(/'/g, "''")}'; $s.Save()`,
+    { stdio: "inherit", shell: "powershell.exe" }
+  );
+  log(`SHORTCUT ${shortcutPath} -> ${appsDest}`);
   log("PASS package:desktop");
 } catch (err) {
   log(`FAIL package:desktop: ${err.message}`);

@@ -19,14 +19,9 @@ export function AppLayout() {
   return (
     <div className="min-h-dvh lg:flex">
       <aside className="no-print border-b border-garage-border bg-garage-surface lg:fixed lg:inset-y-0 lg:w-64 lg:border-b-0 lg:border-r">
-        <div className="flex items-center justify-between px-4 py-5 lg:px-6">
-          <div>
-            <p className="font-serif text-xl font-semibold">Garage Keeper</p>
-            <p className="text-xs text-garage-muted">{vehicle.profile.name}</p>
-          </div>
-          <button type="button" onClick={toggleLightMode} className="btn-ghost text-lg lg:hidden" aria-label="Toggle theme">
-            {preferences.lightMode ? '◐' : '◑'}
-          </button>
+        <div className="px-4 py-5 lg:px-6">
+          <p className="font-serif text-xl font-semibold">Garage Keeper</p>
+          <p className="text-xs text-garage-muted">{vehicle.profile.name}</p>
         </div>
         <nav className="flex gap-1 overflow-x-auto px-2 pb-3 lg:flex-col lg:overflow-visible lg:px-3 lg:pb-6">
           {NAV.map((item) => (
@@ -46,12 +41,16 @@ export function AppLayout() {
             </NavLink>
           ))}
         </nav>
-        <div className="hidden px-6 pb-6 lg:block">
-          <button type="button" onClick={toggleLightMode} className="btn-ghost w-full justify-start">
-            {preferences.lightMode ? '◐ Dark mode' : '◑ Light mode'}
-          </button>
-        </div>
       </aside>
+
+      <button
+        type="button"
+        onClick={toggleLightMode}
+        className="fixed bottom-4 left-4 z-50 btn-ghost rounded-xl border border-garage-border bg-garage-surface/95 px-3 py-2 text-sm shadow-lg backdrop-blur-sm bottom-20 lg:bottom-4 lg:left-4"
+        aria-label="Toggle theme"
+      >
+        {preferences.lightMode ? '◐ Dark mode' : '◑ Light mode'}
+      </button>
 
       <div className="flex-1 lg:pl-64">
         <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8">
